@@ -28,11 +28,6 @@ require("lazy").setup({
     end,
   },
 
-  -- lua/plugins/catppuccin.lua
-return {
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-}
-
   -- Status line
   {
     "nvim-lualine/lualine.nvim",
