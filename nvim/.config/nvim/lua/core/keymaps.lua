@@ -1,38 +1,34 @@
--- ตั้งค่า option สำหรับ keymap
-local opts = { noremap = true, silent = true }
-local keymap = vim.keymap.set
-
--- Remap คีย์ leader
+-- ตั้ง Space เป็น leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- ----------- Normal Mode -----------
-keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)      -- เปิด/ปิด file explorer
-keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts) -- ค้นหาไฟล์
-keymap("n", "<leader>fg", ":Telescope live_grep<CR>", opts)  -- ค้นหาข้อความ
-keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)    -- ค้นหา buffer
-keymap("n", "<leader>fh", ":Telescope help_tags<CR>", opts)  -- ค้นหา help
+local map = vim.keymap.set
+local opts = { silent = true, noremap = true }
 
--- การจัดการ window
-keymap("n", "<leader>sv", "<C-w>v", opts) -- split window แนวตั้ง
-keymap("n", "<leader>sh", "<C-w>s", opts) -- split window แนวนอน
-keymap("n", "<leader>se", "<C-w>=", opts) -- ปรับขนาด window ให้เท่ากัน
-keymap("n", "<leader>sx", ":close<CR>", opts) -- ปิด window
+-- Save & Quit
+map("n", "<leader>s", ":w<CR>", opts) -- Space + s → save
+map("n", "<leader>q", ":q<CR>", opts) -- Space + q → quit
+map("n", "<leader>Q", ":q!<CR>", opts) -- Space + Q → force quit
+map("n", "<leader>wq", ":wq<CR>", opts) -- Space + wq → save & quit
 
--- Tab management
-keymap("n", "<leader>to", ":tabnew<CR>", { silent = true }) -- new tab
-keymap("n", "<leader>tx", ":tabclose<CR>", { silent = true }) -- close tab
-keymap("n", "<leader>tn", ":tabn<CR>", { silent = true }) -- next tab
-keymap("n", "<leader>tp", ":tabp<CR>", { silent = true }) -- prev tab
+-- Buffer
+map("n", "<leader><Tab>", ":bnext<CR>", opts) -- ไป buffer ถัดไป
+map("n", "<leader><S-Tab>", ":bprevious<CR>", opts) -- ไป buffer ก่อนหน้า
 
+-- Tab (เหมือน Ctrl+PageUp/PageDown ของ VS Code)
+map("n", "<C-PageDown>", "gt", opts) -- Ctrl+PageDown → tab ถัดไป
+map("n", "<C-PageUp>", "gT", opts) -- Ctrl+PageUp   → tab ก่อนหน้า
+map("n", "<C-t>", ":tabnew<CR>", opts) -- Ctrl+t → เปิด tab ใหม่
+map("n", "<C-w>", ":tabclose<CR>", opts) -- Ctrl+w → ปิด tab ปัจจุบัน
 
--- ----------- Insert Mode -----------
-keymap("i", "jk", "<ESC>", opts) -- พิมพ์ jk เพื่อออกจาก insert mode
+-- Window (split navigation, resize)
+map("n", "<C-h>", "<C-w>h", opts)
+map("n", "<C-j>", "<C-w>j", opts)
+map("n", "<C-k>", "<C-w>k", opts)
+map("n", "<C-l>", "<C-w>l", opts)
 
--- ----------- Visual Mode -----------
-keymap("v", "<", "<gv", opts) -- เลื่อน indent ไปทางซ้าย แล้วยังคงเลือกอยู่
-keymap("v", ">", ">gv", opts) -- เลื่อน indent ไปทางขวา แล้วยังคงเลือกอยู่
-
--- Buffer navigation
-keymap("n", "<S-l>", ":bnext<CR>", { silent = true })
-keymap("n", "<leader>bd", ":bdelete<CR>", { silent = true })
+-- Resize window ด้วย Ctrl+Arrow
+map("n", "<C-Up>", ":resize +2<CR>", opts)
+map("n", "<C-Down>", ":resize -2<CR>", opts)
+map("n", "<C-Left>", ":vertical resize -2<CR>", opts)
+map("n", "<C-Right>", ":vertical resize +2<CR>", opts)

@@ -31,8 +31,7 @@ This setup works on both **macOS** and **Linux**.
 ### 1. Clone this repo
 
 ```bash
-git clone git@github.com:alcapon/dotfiles.git ~/dotfiles
-cd ~/dotfiles
+git clone https://github.com/alcapon/dotfile.git ~/dotfile
 ```
 
 ### 2. Install GNU Stow
